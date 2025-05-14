@@ -1,0 +1,72 @@
+= Callback Library for Arduino
+:author: dynapptor
+:email: dynapptor@dynapptor.com
+:revnumber: 1.0.0
+:revdate: 2025-05-14
+:toc: macro
+:toclevels: 2
+
+A lightweight, heap-free, type-safe C++ callback wrapper for Arduino and other embedded platforms.
+
+== Features
+
+* No heap or dynamic memory allocation
+* Works on AVR (ATmega, ATtiny) and ARM boards
+* Supports:
+** Static/free functions
+** Member functions
+** Non-capturing lambdas
+** Context-passing to static or member functions
+* Operator() support for natural syntax
+
+== Installation
+
+.Clone the repository:
+[source, bash]
+----
+git clone https://github.com/youruser/callback.git
+----
+
+.Place `src/Callback.h` and `src/Callback.tpp` into your `lib/` folder.
+
+== Basic Usage
+
+.Static function:
+[source, cpp]
+----
+void myFn(int value) {
+  Serial.println(value);
+}
+Callback<void, int> cb(&myFn);
+cb(42);
+----
+
+.Member with context:
+[source, cpp]
+----
+struct Ctx { int base = 5; };
+struct Obj {
+  void calc(Ctx* ctx, int val) {
+    Serial.println(ctx->base + val);
+  }
+};
+Ctx c;
+Obj o;
+Callback<void, int> cb(c, o, &Obj::calc);
+cb(10);
+----
+
+== Examples
+
+* `examples/member/member.ino` — Member function
+* `examples/static/static.ino` — Static function
+* `examples/context/context.ino` — Static + context
+* `examples/member_context/member_context.ino`
+* `examples/lambda/lambda.ino` — Lambda
+* `examples/lambda_context/lambda_context.ino`
+* `examples/dispatcher/event_dispatcher.ino`
+* `examples/holder/callback_holder.ino`
+
+== License
+
+MIT License. See link:LICENSE.txt[LICENSE.txt].
