@@ -24,7 +24,7 @@ A lightweight, heap-free, type-safe C++ callback wrapper for Arduino and other e
 .Clone the repository:
 [source, bash]
 ----
-git clone https://github.com/youruser/callback.git
+git clone https://github.com/dynapptor/Callback.git
 ----
 
 .Place `src/Callback.h` and `src/Callback.tpp` into your `lib/` folder.
