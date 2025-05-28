@@ -6,12 +6,7 @@
 // Default constructor
 template <typename RET, typename... ARGS>
 Callback<RET, ARGS...>::Callback() {
-  memset(_member, 0, sizeof(_member));
-  _p.function = nullptr;
-  _membercaller = nullptr;
-  _contextFn = nullptr;
-  _contextedMemberCaller = nullptr;
-  _context = nullptr;
+  clear();
 }
 
 // Constructor: static function
@@ -152,6 +147,17 @@ TContext* Callback<RET, ARGS...>::context() const {
 template <typename RET, typename... ARGS>
 bool Callback<RET, ARGS...>::valid() const {
   return _contextedMemberCaller || _contextFn || _membercaller || _p.function;
+}
+
+// set empty stae
+template <typename RET, typename... ARGS>
+void Callback<RET, ARGS...>::clear() {
+  memset(_member, 0, sizeof(_member));
+  _p.function = nullptr;
+  _membercaller = nullptr;
+  _contextFn = nullptr;
+  _contextedMemberCaller = nullptr;
+  _context = nullptr;
 }
 
 #endif
