@@ -88,6 +88,9 @@ class Callback {
   // Check if callback is assigned and valid
   bool valid() const;
 
+  // Set empty state
+  void clear();
+
  private:
   // Member dispatcher helper
   template <typename TObj>
