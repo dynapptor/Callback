@@ -112,7 +112,10 @@ template <typename RET, typename... ARGS>
 template <typename TObj>
 RET Callback<RET, ARGS...>::membercaller(void* object, const uintptr_t* member, ARGS... args) {
   TObj* o = static_cast<TObj*>(object);
-  RET (TObj::* * m)(ARGS...) = reinterpret_cast<RET (TObj::**)(ARGS...)>(member);
+  // RET (TObj::* * m)(ARGS...) = reinterpret_cast<RET (TObj::**)(ARGS...)>(member);
+  // return (o->**m)(args...);
+  using MemberFnPtr = RET (TObj::*)(ARGS...);
+  const MemberFnPtr* m = reinterpret_cast<const MemberFnPtr*>(member);
   return (o->**m)(args...);
 }
 
@@ -121,7 +124,10 @@ template <typename TContext, typename TObj>
 RET Callback<RET, ARGS...>::contextedMemberCaller(void* object, void* context, const uintptr_t* member, ARGS... args) {
   TObj* o = static_cast<TObj*>(object);
   TContext* c = static_cast<TContext*>(context);
-  RET (TObj::* * m)(TContext*, ARGS...) = reinterpret_cast<RET (TObj::**)(TContext*, ARGS...)>(member);
+  // RET (TObj::* * m)(TContext*, ARGS...) = reinterpret_cast<RET (TObj::**)(TContext*, ARGS...)>(member);
+  // return (o->**m)(c, args...);
+  using MemberFnPtr = RET (TObj::*)(TContext*, ARGS...);                // Define the member function pointer type
+  const MemberFnPtr* m = reinterpret_cast<const MemberFnPtr*>(member);  // Preserve const
   return (o->**m)(c, args...);
 }
 
