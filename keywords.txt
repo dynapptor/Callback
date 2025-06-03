@@ -1,0 +1,18 @@
+Collapse
+
+Wrap
+
+Copy
+# Callback Library Keywords
+# Syntax: keyword<TAB>KEYWORD_TYPE
+
+# Classes and Types
+Callback	KEYWORD1
+FunctionType	KEYWORD1
+
+# Methods
+attach		KEYWORD2
+invoke		KEYWORD2
+context		KEYWORD2
+valid		KEYWORD2
+clear		KEYWORD2
